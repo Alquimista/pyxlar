@@ -1,0 +1,117 @@
+# app.kv
+<ColorSwatch>
+    size_hint_x: None
+    size_hint_y: None
+    border_color: 1, 1, 1, 0.45
+    border_size: 0.5
+    width: 16 - self.border_size*2
+    height: 16 - self.border_size*2
+    canvas:
+        Color:
+            rgba: 0, 0, 0, 1
+        Line:
+            width: self.border_size*1.5
+            rectangle: self.x, self.y, self.width, self.height
+        Color:
+            rgb: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        Line:
+            width: self.border_size
+            rectangle: self.x, self.y, self.width, self.height
+        Color:
+            rgb: self.border_color if self.state == 'down' else self.background_color
+        Line:
+            width: self.border_size
+            rectangle: self.x, self.y, self.width, self.height
+
+
+<ColorLabel>
+    canvas.before:
+        Color:
+            rgb: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        Color:
+            rgb: 0, 0, 0
+        Line:
+            width: .5
+            rectangle: self.x, self.y, self.width, self.height
+
+<CanvasPaint>
+    canvas.before:
+        Color:
+            rgb: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<Paint_brush>:
+    size_hint: None, None
+    size: 25, 50
+    canvas:
+        Color:
+            rgb: self.brush_color
+        Ellipse:
+            size: self.brush_size, self.brush_size
+            pos: self.pos
+
+
+<MainUI>
+    id: main
+    gridPalette: gridPalette
+    colorLabel: colorLabel
+    canvasPaint: canvasPaint
+    clearButton: clearButton
+    brushSizeSlider: brushSizeSlider
+    # undoButton: undoButton
+    brush_color:
+    brush_size:
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: None
+        width:120
+        GridLayout:
+            id: gridPalette
+            cols: 6
+            rows: 5
+            padding: 8
+            spacing: 3
+        # Button:
+        #     id: undoButton
+        #     text: 'Undo'
+        #     size_hint_y: None
+        #     height: 54
+        Button:
+            id: clearButton
+            text: 'Clean'
+            size_hint_y: None
+            height: 54
+        ColorLabel:
+            id: colorLabel
+            text: "#000000\nrgb(0, 0, 0)"
+            size_hint_y: None
+            height: 54
+            halign: 'center'
+            valign: 'middle'
+            bold: True
+            outline_color: 0, 0, 0
+            outline_width: 1
+            font_size: 11
+            background_color: main.brush_color
+    BoxLayout:
+        orientation: 'vertical'
+        CanvasPaint:
+            id: canvasPaint
+            brush_color: main.brush_color
+            brush_size: main.brush_size
+        Slider:
+            id: brushSizeSlider
+            size_hint_y: None
+            height: 54
+            size_hint_x: 0.9
+            value: 1
+            range: (1,100)
+            step: 1

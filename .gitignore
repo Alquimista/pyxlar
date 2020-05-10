@@ -1,0 +1,14 @@
+*.pyc
+*.pyo
+*.pyd
+/dist/
+/*.egg-info
+/__pycache__/
+.__*
+build/*
+dist/*
+.DS_Store
+profile
+*.swp
+.tox
+/.vscode/
